@@ -1,0 +1,66 @@
+name: Activity 1
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  setup-and-test:
+    runs-on: ubuntu-latest # 1. Setup simple OS (Linux)
+
+    steps:
+    # 1. Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. Setup environment (example: Python)
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    # 3. Install necessary tools for testing
+    - name: Install test tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl jq
+
+    # 4. Install dependencies (example: Python requirements)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # 5. Extract repositories or dependencies
+    - name: Download external repositories (if needed)
+      run: |
+        git clone https://github.com/example/test-repo.git test-scripts
+
+    # 6. Run tests and setup test commands
+    - name: Run tests
+      run: |
+        pytest tests/ --junitxml=test-results/results.xml || echo "Tests failed, but continuing for reporting."
+
+    # 7. Setup output of test results
+    - name: Archive test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: test-results/
+
+    # 8. Setup issues found (example: Linting)
+    - name: Lint the code
+      run: |
+        flake8 src/ || echo "Linting issues found, but continuing for reporting."
+
+    # 9. Upload issue reports or logs (optional)
+    - name: Archive linting logs
+      uses: actions/upload-artifact@v3
+      with:
+        name: lint-logs
+        path: flake8-report.txt
+        if-no-files-found: ignore
