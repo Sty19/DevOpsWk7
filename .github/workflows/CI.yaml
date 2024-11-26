@@ -20,6 +20,11 @@ jobs:
         with:
           python-version: '3.13' 
 
+      # Install Python dependencies (including Behave)
+      - name: Install dependencies
+        run: |
+          pip install behave
+
       # install behave
       - name: Setup Behave
         uses: BSFishy/pip-action@v1
