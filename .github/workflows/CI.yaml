@@ -30,7 +30,7 @@ jobs:
       # Run Behave tests
       - name: Run Behave Tests
         run: |
-          run behave features/
+          behave features/
 
       # Upload Test Results (Optional)
       - name: Upload Test Results
