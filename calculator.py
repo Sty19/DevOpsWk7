@@ -41,8 +41,10 @@ def tangent(angle_degrees):
 # program entry point
 while True:
     operation = '+'
-    number_1 = int(input('Please enter the first number: '))
-    number_2 = int(input('Please enter the second number: '))
+    number_1 = 10
+    number_2 = 10
+    #number_1 = int(input('Please enter the first number: '))
+    #number_2 = int(input('Please enter the second number: '))
 
     if operation == '+':
         print('{} + {} = '.format(number_1, number_2))
