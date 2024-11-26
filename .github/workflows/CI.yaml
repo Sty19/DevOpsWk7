@@ -30,7 +30,8 @@ jobs:
       # Run Behave tests
       - name: Run Behave Tests
         run: |
-          behave --junit --junit-directory reports # Generate test reports in the "reports" directory
+          behave
+          # --junit --junit-directory reports # Generate test reports in the "reports" directory
 
       # Upload Test Results (Optional)
       - name: Upload Test Results
